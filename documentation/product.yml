@@ -1,0 +1,85 @@
+openapi: 3.0.0
+# info:
+#   title: Sample API
+#   description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+#   version: 0.1.9
+
+tags:
+  name: Products
+  description: Products APIs 
+
+paths:
+  /products:
+    post:
+      description: Adds product in the database.
+      tags: [Products]
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: product
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                  - price
+                  - description
+                properties:
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  description:
+                    type: string
+      responses:
+        200:
+          description: Returns saved product
+        500:
+          description: Internal Server Error
+    get:
+      description: Adds product in the database.
+      tags: [Products]
+      responses:
+        200:
+          description: Returns saved product
+        500:
+          description: Internal Server Error
+  
+  /products/{productId}/review:
+    patch:
+      description: Add a review to product
+      tags: [Products]
+      parameters:
+      - in: path
+        name: productId
+        type: string
+        required: true
+      - in: body
+        name: review
+        required: true
+        content:
+          application/json:
+          schema:
+            type: object
+            required:
+            - user
+            - rating
+            - text
+            properties:
+              user:
+                type: string
+              rating:
+                type: number
+              text:
+                type: string
+      responses:
+        200:
+          description: Returns saved product
+        500:
+          description: Internal Server Error        
+
+
+
